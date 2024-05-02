@@ -5,3 +5,8 @@ learn data mongoose setup here
 file upload
 mail
 token checking
+
+<!-- 
+*.env
+.env.*
+ -->
