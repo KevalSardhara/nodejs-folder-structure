@@ -1,11 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>register</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <form action="/api/v1/user/register" method="post" enctype="multipart/form-data">
+
+      <label for="fname">User Name</label>
+      <input type="text" name='username' placeholder="Your name..">
+  
+      <label for="lname">First Name</label>
+      <input type="text" name='fullname'placeholder="Your last name..">
+
+      <label for="fname">Avater Name</label>
+      <input type="file" name='avatar' placeholder="Your name..">
+     
+      <label for="fname">Avater Name</label>
+      <input type="file" name='coverImage' placeholder="Your name..">
+  
+      <label for="fname">Email</label>
+      <input type="email" name='email' placeholder="Your name..">
+  
+      <label for="lname">Password</label>
+      <input type="password" name='password' placeholder="Your last name..">
+  
+      <input type="submit" value="Submit">
+  
+    </form>
   </body>
 </html>

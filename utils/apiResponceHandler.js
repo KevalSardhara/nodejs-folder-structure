@@ -6,3 +6,7 @@ class ApiResponce {
         this.success = success;
     }
 }
+
+module.exports = {
+    ApiResponce,
+}

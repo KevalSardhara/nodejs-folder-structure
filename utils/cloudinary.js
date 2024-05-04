@@ -17,13 +17,13 @@ const cloudinaryFunction = async (localPathName) => {
         }
 
         const fileResponce = await cloudinary.uploader.upload(localPathName, {
-            public_id: "olympic_flag",
             resource_type: "auto"
         }, function (error, result) { console.log(result); });
-
+        fs.unlinkSync(localPathName); // remove local file path
         return fileResponce;
+        
     } catch (error) {
-        fs.unlink(localPathName); // remove local file path
+        fs.unlinkSync(localPathName); // remove local file path
         return next(new Error('File not found: ' + localPathName));
     }
 }

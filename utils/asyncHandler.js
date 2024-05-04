@@ -1,6 +1,7 @@
-const asyncHandlers = (fun) => {
-    (req, res, next) => {
+const asyncHandler = (fun) => {
+    return (req, res, next) => {
         Promise.resolve(fun(req, res, next)).catch((err) => {
+            console.log("error");
             next(err);
         });
         // return new Promise((resolve, reject) => {
@@ -14,7 +15,7 @@ const asyncHandlers = (fun) => {
     }
 }
 
-module.exports = { asyncHandlers };
+module.exports = { asyncHandler };
 
 // wraper function to make this things
 // const asyncHandlers = (fun) => {

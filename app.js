@@ -5,15 +5,16 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const dotenv = require('dotenv');
 const { connectDB } = require("./database/mongodb.database.js");
-const { mongoose } = require('mongoose');
-const { userRouter } = require('./routes/user.router.js');
-
 const cors = require("cors");
+
 var app = express();
 
 dotenv.config({
   path: './.env'
 })
+
+
+const { userRouter } = require('./routes/user.router.js');
 
 
 app.use(cors({
@@ -50,18 +51,16 @@ app.use(express.urlencoded({ extended: false })); // url encoded for the make pr
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/', indexRouter);
-// app.use('/users', usersRouter);
-
-// app.use("/user", userRouter);
-
-// app.use("/data", oredrDataRouter);
 
 
 
 
-app.use('/api', userRouter);
+app.use('/api/v1/user', userRouter);
 
+app.get("/", function(req,res, next){
+  // res.send("run");
+  res.render('index');
+});
 
 
 
@@ -89,3 +88,8 @@ module.exports = app;
 //   PASSWORD : "sMf46xCzrvdrxvuagc",
 //   ATLAS_URI: "<MONGODB_ATLAS_URI>"
 // }
+
+// app.use('/', indexRouter);
+// app.use('/users', usersRouter);
+// app.use("/user", userRouter);
+// app.use("/data", oredrDataRouter);

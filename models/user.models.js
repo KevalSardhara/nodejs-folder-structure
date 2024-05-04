@@ -19,13 +19,20 @@ const userSchema = new mongoose.Schema({
         trim: true,
         index: true
     },
+    email : {
+        type: String,
+        required : true,
+        trim: true,
+        lowercase : true,
+        unique: true
+    },
     avatar: {
         type: String, // add here cloudnary URL here
-        required: true
+        // required: true
     },
     coverImage: {
         type: String, // add here cloudnary URL here
-        required: true
+        // required: true
     },
     watchHistry: [
         {
@@ -40,17 +47,17 @@ const userSchema = new mongoose.Schema({
     },
     refreshToken: {
         type: String, // main things to refresh this token here
-        required: [true, "Please enter your refresh token"],
+        // required: [true, "Please enter your refresh token"],
         trim: true
     }
 }, { timestamps: true });
 
 userSchema.pre('save', async function (next) {
-    const salt = 'abc!@#';
+    const salt = 10;
     if (!this.isModified("password")) {
         return next();
     }
-    this.password = bcrypt.hash(this.password, salt);
+    this.password = await bcrypt.hash(this.password, salt);
     return next();
 });
 
@@ -59,6 +66,7 @@ userSchema.methods.isPasswordCorrect = async function (password) {
 };
 
 userSchema.methods.generateAccessToken = () => {
+    console.log("token");
     return jwt.sign({ _id: this._id, email: this.email, username : this.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_TOKEN_EXPIRY });
 }
 
@@ -68,3 +76,5 @@ userSchema.methods.generateRefreshToken = () => {
 }
 
 const User = mongoose.model('User', userSchema);
+
+module.exports = {User};
